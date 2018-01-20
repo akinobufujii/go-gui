@@ -32,7 +32,7 @@ func main() {
 	button.ConnectClicked(func(checked bool) {
 
 		// 日付オブジェクトに変換
-		timeObject, _ := time.Parse("2000/01/02", dateEdit.Text())
+		timeObject, _ := time.Parse("2006/01/02", dateEdit.Text())
 
 		resultStr := "あなたは"
 		switch int(timeObject.Month()) {
