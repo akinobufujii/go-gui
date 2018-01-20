@@ -11,6 +11,16 @@ go get -u -v github.com/newhook/go-symbols
 go get -u -v golang.org/x/tools/cmd/guru
 go get -u -v github.com/cweill/gotests/...
 
+go get -u -v github.com/therecipe/qt/cmd/...
+
 # トラブルシュート
 * could not launch process: exec: “lldb-server”: executable file not found in $PATH
   * xcode-select --install
+
+* qtのインストール
+  * brew install qt5
+  * QT_HOMEBREW=true
+  * $GOPATH/bin/qtsetup
+
+* qtアプリの起動
+  * `qtdeploy test desktop`
