@@ -1,51 +1,78 @@
 package main
 
 import (
-	"fmt"
 	"os"
+	"time"
 
 	"github.com/therecipe/qt/widgets"
 )
 
 func main() {
-	fmt.Print("hello world")
 
-	// Create application
-	app := widgets.NewQApplication(len(os.Args), os.Args)
+	widgets.NewQApplication(len(os.Args), os.Args)
 
-	// Create main window
+	// ウィンドウ作成
 	window := widgets.NewQMainWindow(nil, 0)
-	window.SetWindowTitle("Hello World Example")
+	window.SetWindowTitle("占いアプリ")
 	window.SetMinimumSize2(200, 200)
 
-	// Create main layout
+	// レイアウト作成
 	layout := widgets.NewQVBoxLayout()
 
-	// Create main widget and set the layout
-	mainWidget := widgets.NewQWidget(nil, 0)
-	mainWidget.SetLayout(layout)
+	// ウィジェット作成
+	widget := widgets.NewQWidget(nil, 0)
+	widget.SetLayout(layout)
 
-	// Create a line edit and add it to the layout
-	input := widgets.NewQLineEdit(nil)
-	input.SetPlaceholderText("1. write something")
-	layout.AddWidget(input, 0, 0)
+	// 日付入力
+	dateEdit := widgets.NewQDateEdit(nil)
+	layout.AddWidget(dateEdit, 0, 0)
 
-	// Create a button and add it to the layout
-	button := widgets.NewQPushButton2("2. click me", nil)
+	// ボタン作成
+	button := widgets.NewQPushButton2("生年月日を入力したら押してね(•ө•)♡", nil)
+	button.ConnectClicked(func(checked bool) {
+
+		// 日付オブジェクトに変換
+		timeObject, _ := time.Parse("2000/01/02", dateEdit.Text())
+
+		resultStr := "あなたは"
+		switch int(timeObject.Month()) {
+		case 1:
+			resultStr += "山羊座"
+		case 2:
+			resultStr += "水瓶座"
+		case 3:
+			resultStr += "魚座"
+		case 4:
+			resultStr += "牡羊座"
+		case 5:
+			resultStr += "牡牛座"
+		case 6:
+			resultStr += "双子座"
+		case 7:
+			resultStr += "蟹座"
+		case 8:
+			resultStr += "しし座"
+		case 9:
+			resultStr += "乙女座"
+		case 10:
+			resultStr += "てんびん座"
+		case 11:
+			resultStr += "蠍座"
+		case 12:
+			resultStr += "射手座"
+		}
+
+		resultStr += "です"
+		widgets.QMessageBox_Information(nil, "OK", resultStr, widgets.QMessageBox__Ok, widgets.QMessageBox__Ok)
+	})
 	layout.AddWidget(button, 0, 0)
 
-	// Connect event for button
-	button.ConnectClicked(func(checked bool) {
-		widgets.QMessageBox_Information(nil, "OK", input.Text(),
-			widgets.QMessageBox__Ok, widgets.QMessageBox__Ok)
-	})
+	// ウィンドウにウィジェットを設定
+	window.SetCentralWidget(widget)
 
-	// Set main widget as the central widget of the window
-	window.SetCentralWidget(mainWidget)
-
-	// Show the window
+	// ウィンドウを表示
 	window.Show()
 
-	// Execute app
-	app.Exec()
+	// メインループ開始
+	widgets.QApplication_Exec()
 }

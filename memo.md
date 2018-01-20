@@ -24,3 +24,6 @@ go get -u -v github.com/therecipe/qt/cmd/...
 
 * qtアプリの起動
   * `qtdeploy test desktop`
+
+* ビルド高速化(使い方がよくわからない)
+  * https://github.com/therecipe/qt/issues/431
